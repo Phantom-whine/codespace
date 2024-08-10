@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Sample code editor</title>
+</head>
+<body>
+    <main class="main-div">
+        <div class="tabs">
+            <button id="btn-html" onclick="change(1)">HTML</button>
+            <button id="btn-css" onclick="change(2)">CSS</button>
+            <button id="btn-js" onclick="change(3)">JS</button>
+        </div>
+        <div class="code-flex">
+            <div class="code-area">
+                <div id="code-html" class="code" oninput="update_output()"></div>
+                <div id="code-css" class="code" oninput="update_output()"></div>
+                <div id="code-js" class="code" oninput="update_output()"></div>
+            </div>
+            <div class="output-preview">
+                <iframe id="frame"></iframe>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.15.2/ace.js"></script>
+    <script>
+        function createEditor(elementId, mode) {
+            const editor = ace.edit(elementId);
+            editor.setTheme("ace/theme/monokai");
+            editor.session.setMode("ace/mode/" + mode);
+            editor.setOptions({
+                fontSize: "12pt",
+                showPrintMargin: false,
+                showGutter: true,
+                vScrollBarAlwaysVisible: true,
+                enableBasicAutocompletion: true,
+                enableLiveAutocompletion: true,
+                enableSnippets: true
+            });
+            return editor;
+        }
+        const htmlEditor = createEditor("code-html", "html");
+        const cssEditor = createEditor("code-css", "css");
+        const jsEditor = createEditor("code-js", "javascript");
+
+
+    </script>
+</body>
+</html>
