@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample code editor</title>
+    <style>
+        *{
+    padding: 0;
+    margin: 0;
+}
+@font-face {
+    font-family: baloo;
+    src: url(BalooPaaji-Regular.ttf);
+}
+button{
+    font-family: baloo;
+    border: 2px solid black;
+    width: 100px;
+    padding: 5px;
+    position: relative;
+    top: 10px;
+}
+.btn-lang:active{
+    border: 3px solid blue;
+}
+#btn-js{
+    position: relative;
+    border-radius: 5px;
+    background-color: rgb(232, 232, 0);
+    color: black;
+}
+.main-div{
+    height: 93vh;
+    width: 90%;
+    margin: 0 auto;
+    position: relative;
+    top: 20px;
+}
+.tabs{
+    border: 1px solid black;
+    height: 9%;
+    width: fit-content;
+    border-radius: 5px 5px 0 0;
+    background-color: black;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.code-flex{
+    border: 1px solid black;
+    height: 90%;
+    display: flex;
+    border-radius: 0 5px 5px 5px;
+}
+.code-area, .output-preview{
+    border: 1px solid black;
+    width: 50%;
+}
+.code{
+    width: 100%;
+    height: 100%;
+    resize: none;
+    outline: none;
+}
+
+#frame{
+    width: 100%;
+    height: 100%;
+}
+    </style>
+</head>
+<body>
+    <main class="main-div">
+        <div class="tabs">
+            <button id="btn-js">JS</button>
+        </div>
+        <div class="code-flex">
+            <div class="code-area">
+                <div id="code-js" class="code" oninput="update_output_js()"></div>
+            </div>
+            <div class="output-preview">
+                <iframe id="frame"></iframe>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.15.2/ace.js"></script>
+    <script>
+        function createEditor(elementId, mode) {
+            const editor = ace.edit(elementId);
+            editor.setTheme("ace/theme/monokai");
+            editor.session.setMode("ace/mode/" + mode);
+            editor.setOptions({
+                fontSize: "12pt",
+                showPrintMargin: false,
+                showGutter: true,
+                vScrollBarAlwaysVisible: true,
+                enableBasicAutocompletion: true,
+                enableLiveAutocompletion: true,
+                enableSnippets: true
+            });
+            return editor;
+        }
+
+        const jsEditor = createEditor("code-js", "javascript");
+
+
+    </script>
+    <script>
+    function update_output_js(){
+        const js = jsEditor.getValue();
+        const output = eval(js);
+        const content = `
+            ${output}
+        `
+        document.querySelector('#frame').srcdoc = content;
+    }
+
+    </script>
+</body>
+</html>

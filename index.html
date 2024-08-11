@@ -13,6 +13,12 @@
             <button id="btn-css" onclick="change(2)">CSS</button>
             <button id="btn-js" onclick="change(3)">JS</button>
         </div>
+        <div class="allow">
+            <div class="tailwind">
+                <button id="toggle">OFF</button>
+                <span>Tailwind</span>
+            </div>
+        </div>
         <div class="code-flex">
             <div class="code-area">
                 <div id="code-html" class="code" oninput="update_output()"></div>
@@ -44,8 +50,11 @@
         }
         const htmlEditor = createEditor("code-html", "html");
         const cssEditor = createEditor("code-css", "css");
+        const css_holder = `/*CSS code here*/`;
+        cssEditor.setValue(css_holder)
         const jsEditor = createEditor("code-js", "javascript");
-
+        jsEditor.setValue('//JS code here')
+        update_output()
 
     </script>
 </body>
